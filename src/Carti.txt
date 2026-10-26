@@ -1,0 +1,10 @@
+Dune##Frank Herbert##1965##false##Beletristică
+Crima si pedeapsa##Feodor Dostoievski##1866##true##Beletristică
+Arta de a ignora stapanul##Garfield Arbuckle##2018##true##Filosofie Felină
+Tao si torsul perfect##Miau Tzu##2020##true##Filosofie Felină
+Gandire rapida, gandire lenta##Daniel Kahneman##2011##true##Psihologie
+Inteligenta emotionala##Daniel Goleman##1995##true##Psihologie
+Ghidul de supravietuire printre zombi##Max Brooks##2003##true##Supraviețuire Apocaliptică
+Cum sa-ti construiesti un buncar cu buget redus##Ion Supravietuitorul##2021##true##Supraviețuire Apocaliptică
+Clean Code##Robert C. Martin##2008##true##Informatică
+Algoritmi de baza##Thomas Cormen##2009##true##Informatică
