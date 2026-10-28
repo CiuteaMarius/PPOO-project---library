@@ -112,17 +112,31 @@ public class Meniu {
                 if(utilizator.getEsteBibliotecar() == false)
                 {
                     optN.afisareImprumutare();
-                    Actiuni.ActiuniNormal actiuniNormal = new Actiuni.ActiuniNormal(memorie);
+
 
 
                     ActiuniNormal actN = new ActiuniNormal(memorie);
                     actN.imprCentraliz(utilizator);
                     prezentareOptiuni();
                     selectie(memorie);
-                    break;
+
                 }
+
+                break;
+            case 6:
+                if(utilizator.getEsteBibliotecar() == false)
+                {
+                    ActiuniNormal actN = new ActiuniNormal(memorie);
+                    actN.showOwnB(memorie, utilizator);
+                    revii();
+                    selectie(memorie);
+
+                }
+                break;
             case 8:
+                this.utilizator = new Utilizator();
                 startMeniu(memorie);
+                selectie(memorie);
                 break;
             case 9:
                 exit(memorie);

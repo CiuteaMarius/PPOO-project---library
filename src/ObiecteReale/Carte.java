@@ -87,4 +87,9 @@ public class Carte {
         }
         return first + second;
     }
+
+    public String toStringLite()
+    {
+        return this.titlu + " de " + this.autor + " în " + this.an_publicare;
+    }
 }

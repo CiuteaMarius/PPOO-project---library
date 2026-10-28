@@ -123,4 +123,33 @@ public class ActiuniNormal {
             }
         }
     }
+
+    public void showOwnB(ManagerMemorie memorie, Utilizator user)
+    {
+        if(memorie.getImprumuturi().containsKey(user.getUsername()))
+        {
+            System.out.println("Cărțile împrumutate de dvs sunt: ");
+            for(String key : memorie.getImprumuturi().keySet())
+            {
+                if (key.equalsIgnoreCase(user.getUsername()))
+                {
+                    for(Imprumut imprumut : memorie.getImprumuturi().get(key)) {
+
+
+                        String[] bucati = imprumut.getIdCarte().split("!#!");
+                        String titlu = bucati[0];
+                        String autor = bucati[1];
+                        String an = bucati[2];
+
+                        System.out.println(titlu + " de " + autor + " în " + an);
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("Nu ați împrumutat cărți");
+        }
+
+    }
 }
+
