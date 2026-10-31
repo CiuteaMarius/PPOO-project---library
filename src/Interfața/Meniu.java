@@ -134,6 +134,11 @@ public class Meniu {
                     revii();
                     selectie(memorie);
 
+                }else {
+                    ActiuniBibliotecar actB = new ActiuniBibliotecar();
+                    actB.meniuRapoarte(memorie);
+                    prezentareOptiuni();
+                    selectie(memorie);
                 }
                 break;
             case 7:

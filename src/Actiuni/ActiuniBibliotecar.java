@@ -1,7 +1,10 @@
 package Actiuni;
 
+import Excepții.CatInexistenta;
+import Excepții.DateInvalide;
 import ObiecteReale.Carte;
 import ObiecteReale.Imprumut;
+import Excepții.OptiuneInvalida;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -291,4 +294,166 @@ public class ActiuniBibliotecar {
 
     }
 
+    private void raportInterval(ManagerMemorie memorie, LocalDate dataInceput, LocalDate dataSfarsit)
+    {
+        SalveazaInFisiere salveaza = new SalveazaInFisiere(memorie);
+        StringBuilder sb1 = new StringBuilder();
+
+        int total = 0;
+        sb1.append("În perioada cuprinsă între ").append(dataInceput).append(" și ").append(dataSfarsit).append(", utilizatorii au împrumutat cărți după cum urmează:\n\n");
+
+        for (String numeUser : memorie.getImprumuturi().keySet()) {
+            List<Imprumut> allBorrowed = memorie.getImprumuturi().get(numeUser);   // toate imprumuturile userului curent din bucla
+            List<Imprumut> searchedB = new ArrayList<>();           // imprumuturile care se incadreaza in intervalul cautat
+
+            for (Imprumut imp : allBorrowed) {
+                LocalDate dataCurenta = imp.getData().toLocalDate();
+
+                // Verificăm dacă data împrumutului NU este înainte de dataInceput și NU este după dataSfarsit (inclusiv capetele)
+                if (!dataCurenta.isBefore(dataInceput) && !dataCurenta.isAfter(dataSfarsit)) {
+                    searchedB.add(imp);
+                }
+            }
+
+            int inapoiate = 0;
+            if(searchedB.size() >= 1)
+            {
+                sb1.append(numeUser).append(" a împrumutat ").append(searchedB.size()).append(" cărți:\n");
+                boolean[] stadiuReturnari = new boolean[searchedB.size()];
+                for(int i = 0; i < searchedB.size(); i++){
+                    Imprumut impr = searchedB.get(i);
+
+
+                    if(impr.isEsteActiv() == true){
+                        stadiuReturnari[i] = false;
+                    } else {
+                        stadiuReturnari[i] = true;
+                    }
+
+                    String[] parti = impr.getIdCarte().split("!#!");
+                    String titlu = parti[0];
+
+                    sb1.append("        [").append(titlu).append("] (la data ").append(impr.getData().toLocalDate()).append(") - ");
+
+
+                    if(stadiuReturnari[i] == false) {
+                        sb1.append("Încă nu a fost înapoiată\n");
+                    } else {
+                        sb1.append("A fost înapoiată la data de ").append(impr.getDataRestituire().toLocalDate()).append("\n");
+                        inapoiate++;
+                    }
+                }
+
+
+                sb1.append(numeUser).append(" a restituit ").append(inapoiate).append(" din totalul de cărți împrumutate în această perioadă. \n");
+
+                float procent = (100.0f * inapoiate) / searchedB.size();
+
+                sb1.append("Cu alte cuvinte, a restituit ").append(String.format("%.2f", procent)).append("% din totalul de cărți împrumutate. \n\n");
+            }
+
+            total = total + searchedB.size();
+        }
+
+        sb1.append("În total, în acest interval au fost înregistrate ").append(total).append(" împrumuturi.");
+        String rezultat = sb1.toString();
+        String titlu = "ÎMPRUMUTURILE EFECTUATE ÎN PERIOADA: " + dataInceput + " -> " + dataSfarsit;
+
+        salveaza.saveRaport(titlu, rezultat, "Raport Imprumuturi pe Interval");
+    }
+
+
+    //centralizarea rapoartelor
+    private String cereText(String mesaj) throws DateInvalide {
+        System.out.print(mesaj);
+        Scanner scan = new Scanner(System.in);
+        String text = scan.nextLine().trim();
+
+        if (text.isEmpty()) {
+            throw new DateInvalide("Textul introdus nu poate fi gol.");
+        }
+
+        return text;
+    }
+
+    private LocalDate cereData(String mesaj) throws DateInvalide {
+        System.out.print(mesaj);
+        Scanner scan = new Scanner(System.in);
+        String data = scan.nextLine().trim();
+
+        if (data.isEmpty()) {
+            throw new DateInvalide("Data introdusă nu poate fi goală.");
+        }
+
+        try {
+            return LocalDate.parse(data);
+        } catch (DateTimeParseException e) {
+            throw new DateInvalide("Formatul datei este incorect. Trebuie respectat formatul AAAA-LL-ZZ.");
+        }
+    }
+
+    public void meniuRapoarte(ManagerMemorie memorie) {
+        System.out.println("\n=== SUBMENIU RAPOARTE BIBLIOTECAR ===");
+        System.out.println("1) Raport toate cărțile unui autor");
+        System.out.println("2) Raport cărți dintr-o categorie");
+        System.out.println("3) Raport împrumuturi la o dată specifică");
+        System.out.println("4) Raport împrumuturi pe un interval calendaristic");
+        System.out.println("0) Revenire la meniul principal");
+        System.out.print("Introduceți opțiunea: ");
+
+        Scanner scan = new Scanner(System.in);
+        String optiuneText = scan.nextLine();
+        int optiune = -1;
+
+        try {
+            optiune = Integer.parseInt(optiuneText);
+            if (optiune < 0 || optiune > 4) {
+                throw new OptiuneInvalida("Opțiunea introdusă nu există în submeniu.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Vă rugăm să introduceți o valoare numerică validă.");
+            meniuRapoarte(memorie);
+            return;
+        } catch (OptiuneInvalida e) {
+            System.out.println(e.getMessage());
+            meniuRapoarte(memorie);
+            return;
+        }
+
+        try {
+            switch (optiune) {
+                case 1:
+                    String autor = cereText("Introduceți numele autorului pentru raport: ");
+                    raportAutor(memorie, autor);
+                    break;
+                case 2:
+                    String categorie = cereText("Introduceți categoria pentru raport: ");
+                    if (!memorie.getBiblioteca().containsKey(categorie)) {
+                        throw new CatInexistenta("Categoria '" + categorie + "' nu există în baza de date.");
+                    }
+                    raportCategorii(memorie, categorie);
+                    break;
+                case 3:
+                    LocalDate data = cereData("Introduceți data (format AAAA-LL-ZZ): ");
+                    raportImprumuturi(memorie, data);
+                    break;
+                case 4:
+                    LocalDate dataInceput = cereData("Introduceți data de început a intervalului (AAAA-LL-ZZ): ");
+                    LocalDate dataSfarsit = cereData("Introduceți data de sfârșit a intervalului (AAAA-LL-ZZ): ");
+                    if (dataSfarsit.isBefore(dataInceput)) {
+                        throw new DateInvalide("Data de sfârșit nu poate fi cronologic înaintea datei de început.");
+                    }
+                    raportInterval(memorie, dataInceput, dataSfarsit);
+                    break;
+                case 0:
+                    return;
+            }
+        } catch (CatInexistenta e) {
+            System.out.println("Eroare: " + e.getMessage());
+        } catch (DateInvalide e) {
+            System.out.println("Eroare: " + e.getMessage());
+        }
+
+        meniuRapoarte(memorie);
+    }
 }

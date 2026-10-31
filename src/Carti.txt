@@ -1,10 +1,70 @@
-Dune##Frank Herbert##1965##true##Beletristică
-Crima si pedeapsa##Feodor Dostoievski##1866##true##Beletristică
-Arta de a ignora stapanul##Garfield Arbuckle##2018##true##Filosofie Felină
-Tao si torsul perfect##Miau Tzu##2020##true##Filosofie Felină
-Gandire rapida, gandire lenta##Daniel Kahneman##2011##true##Psihologie
-Inteligenta emotionala##Daniel Goleman##1995##true##Psihologie
-Ghidul de supravietuire printre zombi##Max Brooks##2003##true##Supraviețuire Apocaliptică
-Cum sa-ti construiesti un buncar cu buget redus##Ion Supravietuitorul##2021##true##Supraviețuire Apocaliptică
 Clean Code##Robert C. Martin##2008##true##Informatică
 Algoritmi de baza##Thomas Cormen##2009##true##Informatică
+Scurtă istorie a timpului##Stephen Hawking##1988##true##Știință
+Cosmos##Carl Sagan##1980##true##Știință
+Gena egoistă##Richard Dawkins##1976##true##Știință
+O scurtă istorie a tuturor lucrurilor##Bill Bryson##2003##true##Știință
+Originea speciilor##Charles Darwin##1859##true##Știință
+Universul într-o coajă de nucă##Stephen Hawking##2001##true##Știință
+Marele plan##Stephen Hawking##2010##true##Știință
+Răspunsuri scurte la marile întrebări##Stephen Hawking##2018##true##Știință
+Dune##Frank Herbert##1965##true##Beletristică
+Crima si pedeapsa##Feodor Dostoievski##1866##true##Beletristică
+Atomic Habits##James Clear##2018##true##Dezvoltare Personală
+Tată bogat, tată sărac##Robert Kiyosaki##1997##true##Dezvoltare Personală
+Cele 7 deprinderi ale persoanelor eficace##Stephen Covey##1989##true##Dezvoltare Personală
+Puterea prezentului##Eckhart Tolle##1997##true##Dezvoltare Personală
+Arta de a ignora stapanul##Garfield Arbuckle##2018##true##Filosofie Felină
+Tao si torsul perfect##Miau Tzu##2020##true##Filosofie Felină
+Scurtă istorie a omenirii##Yuval Noah Harari##2011##true##Istorie
+Al Doilea Război Mondial##Antony Beevor##2012##true##Istorie
+SPQR: O istorie a Romei antice##Mary Beard##2015##true##Istorie
+Jurnalul Annei Frank##Anne Frank##1947##true##Istorie
+O oglindă îndepărtată##Barbara W. Tuchman##1978##true##Istorie
+Homo Deus: Scurtă istorie a viitorului##Yuval Noah Harari##2015##true##Istorie
+21 de lecții pentru secolul XXI##Yuval Noah Harari##2018##true##Istorie
+Sapiens: O istorie grafică##Yuval Noah Harari##2020##true##Istorie
+Omagiu Cataloniei##George Orwell##1938##true##Istorie
+Fundația##Isaac Asimov##1951##true##SF
+Mântuitorul Dunei##Frank Herbert##1969##true##SF
+Copiii Dunei##Frank Herbert##1976##true##SF
+Împăratul-Zeu al Dunei##Frank Herbert##1981##true##SF
+Fundația și Imperiul##Isaac Asimov##1952##true##SF
+A doua Fundație##Isaac Asimov##1953##true##SF
+Eu, robotul##Isaac Asimov##1950##true##SF
+Zece negri mititei##Agatha Christie##1939##true##Thriller
+Fata din tren##Paula Hawkins##2015##true##Thriller
+Codul lui Da Vinci##Dan Brown##2003##true##Thriller
+Tăcerea mieilor##Thomas Harris##1988##true##Thriller
+Fata cu un dragon tatuat##Stieg Larsson##2005##true##Thriller
+Crima din Orient Express##Agatha Christie##1934##true##Thriller
+Moarte pe Nil##Agatha Christie##1937##true##Thriller
+Cine l-a ucis pe Roger Ackroyd?##Agatha Christie##1926##true##Thriller
+Îngeri și demoni##Dan Brown##2000##true##Thriller
+Simbolul pierdut##Dan Brown##2009##true##Thriller
+Inferno##Dan Brown##2013##true##Thriller
+Gandire rapida, gandire lenta##Daniel Kahneman##2011##true##Psihologie
+Inteligenta emotionala##Daniel Goleman##1995##true##Psihologie
+Stăpânul Inelelor: Frăția Inelului##J.R.R. Tolkien##1954##true##Fantasy
+Harry Potter și Piatra Filozofală##J.K. Rowling##1997##true##Fantasy
+Hobbitul##J.R.R. Tolkien##1937##true##Fantasy
+Stăpânul Inelelor: Cele două turnuri##J.R.R. Tolkien##1954##true##Fantasy
+Stăpânul Inelelor: Întoarcerea regelui##J.R.R. Tolkien##1955##true##Fantasy
+Ghidul de supravietuire printre zombi##Max Brooks##2003##true##Supraviețuire Apocaliptică
+Cum sa-ti construiesti un buncar cu buget redus##Ion Supravietuitorul##2021##true##Supraviețuire Apocaliptică
+Steve Jobs##Walter Isaacson##2011##true##Biografie
+Povestea mea##Michelle Obama##2018##true##Biografie
+Jurnalul unui geniu##Salvador Dali##1964##true##Biografie
+Fără un sfanț prin Paris și prin Londra##George Orwell##1933##true##Biografie
+Sărbătoarea continuă##Ernest Hemingway##1964##true##Biografie
+Mândrie și prejudecată##Jane Austen##1813##true##Literatură Clasică
+Marele Gatsby##F. Scott Fitzgerald##1925##true##Literatură Clasică
+1984##George Orwell##1949##true##Literatură Clasică
+Să ucizi o pasăre cântătoare##Harper Lee##1960##true##Literatură Clasică
+Bătrânul și marea##Ernest Hemingway##1952##true##Literatură Clasică
+Frații Karamazov##Feodor Dostoievski##1880##true##Literatură Clasică
+Idiotul##Feodor Dostoievski##1869##true##Literatură Clasică
+Demonii##Feodor Dostoievski##1872##true##Literatură Clasică
+Ferma animalelor##George Orwell##1945##true##Literatură Clasică
+Adio, arme##Ernest Hemingway##1929##true##Literatură Clasică
+Pentru cine bat clopotele##Ernest Hemingway##1940##true##Literatură Clasică
