@@ -1,4 +1,4 @@
-Dune##Frank Herbert##1965##false##Beletristică
+Dune##Frank Herbert##1965##true##Beletristică
 Crima si pedeapsa##Feodor Dostoievski##1866##true##Beletristică
 Arta de a ignora stapanul##Garfield Arbuckle##2018##true##Filosofie Felină
 Tao si torsul perfect##Miau Tzu##2020##true##Filosofie Felină

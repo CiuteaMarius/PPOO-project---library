@@ -151,5 +151,85 @@ public class ActiuniNormal {
         }
 
     }
+
+    public void restituieCarte(Utilizator user) {
+        // 1. Verificăm dacă utilizatorul există în lista de împrumuturi
+        if (memorie.getImprumuturi().containsKey(user.getUsername()) == false) {
+            System.out.println("Nu aveți niciun împrumut înregistrat.");
+            return;
+        }
+
+        List<Imprumut> toateImprumuturile = memorie.getImprumuturi().get(user.getUsername());
+        List<Imprumut> imprumuturiActive = new ArrayList<>();
+
+        // 2. Extragem DOAR cărțile care sunt încă la utilizator (active)
+        for (Imprumut imp : toateImprumuturile) {
+            if (imp.isEsteActiv() == true) {
+                imprumuturiActive.add(imp);
+            }
+        }
+
+        if (imprumuturiActive.isEmpty()) {
+            System.out.println("Nu aveți cărți împrumutate în acest moment (sau le-ați restituit pe toate).");
+            return;
+        }
+
+        // 3. Afișăm lista numerotată
+        System.out.println("Cărțile împrumutate de dumneavoastră sunt:");
+        int contor = 1;
+        for (Imprumut imp : imprumuturiActive) {
+            String[] bucati = imp.getIdCarte().split("!#!");
+            String titlu = bucati[0];
+            String autor = bucati[1];
+            String an = bucati[2];
+
+            System.out.println(contor + ". " + titlu + " de " + autor + " în " + an);
+            contor = contor + 1;
+        }
+
+        // 4. Cerem input de la utilizator
+        System.out.println("\nIntroduceți numărul cărții pe care doriți să o restituiți sau tastați 'Y' pentru anulare.");
+        Scanner scan = new Scanner(System.in);
+        String raspuns = scan.nextLine().trim();
+
+        // 5. Verificăm dacă vrea să anuleze
+        if (raspuns.equalsIgnoreCase("y")) {
+            System.out.println("Proces anulat.");
+            return;
+        }
+
+        // 6. Transformăm textul în număr și verificăm validitatea
+        int selectie = -1;
+        try {
+            selectie = Integer.parseInt(raspuns);
+        } catch (NumberFormatException e) {
+            System.out.println("Opțiune invalidă. Trebuie să introduceți un număr sau 'Y'.");
+            return;
+        }
+
+        if (selectie < 1 || selectie > imprumuturiActive.size()) {
+            System.out.println("Numărul introdus nu corespunde niciunei cărți din listă.");
+            return;
+        }
+
+        // 7. Modificăm starea împrumutului selectat
+        // Indexul în listă este selecția - 1 (pentru că lista începe de la 0, iar noi am numerotat de la 1)
+        Imprumut imprDeRestituit = imprumuturiActive.get(selectie - 1);
+        imprDeRestituit.setEsteActiv(false);
+        imprDeRestituit.setDataRestituire(java.time.LocalDateTime.now());
+
+        // 8. Căutăm cartea în memorie pentru a o face disponibilă din nou
+        String idTarget = imprDeRestituit.getIdCarte();
+        for (List<Carte> listaCarti : memorie.getBiblioteca().values()) {
+            for (Carte c : listaCarti) {
+                String idCurent = c.getTitlu() + "!#!" + c.getAutor() + "!#!" + c.getAn_publicare();
+                if (idCurent.equalsIgnoreCase(idTarget)) {
+                    c.setEsteDisponibila(true);
+                }
+            }
+        }
+
+        System.out.println("Cartea a fost restituită cu succes!");
+    }
 }
 

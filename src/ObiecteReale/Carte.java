@@ -90,6 +90,7 @@ public class Carte {
 
     public String toStringLite()
     {
-        return this.titlu + " de " + this.autor + " în " + this.an_publicare;
+        return this.titlu + " scrisă de " + this.autor + " în anul" + this.an_publicare;
     }
+    public String toStringLite2(){return this.titlu + " publicată în anul " + this.an_publicare;}
 }

@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class SalveazaInFisiere {
@@ -54,7 +55,12 @@ public class SalveazaInFisiere {
                 List<Imprumut> listaCartiImprumutate = memorie.getImprumuturi().get(username);
 
                 for (Imprumut imprumut : listaCartiImprumutate) {
-                    String linie = username + "##" + imprumut.getIdCarte() + "##" + imprumut.getData().toString();
+                    String linie = username + "##" +
+                            imprumut.getIdCarte() + "##" +
+                            imprumut.getData().toString() + "##" +
+                            imprumut.isEsteActiv() + "##" +
+                            imprumut.getDataRestituire();
+
                     bw.write(linie);
                     bw.newLine();
                 }
@@ -96,5 +102,26 @@ public class SalveazaInFisiere {
         }
     }
 
+    public void saveRaport(String titlu, String rezultat, String fileName)
+    {
+        try {
+            FileWriter fw = new FileWriter("src/Rapoarte/" + fileName + ".txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write("Generat la: " + LocalDateTime.now());
+            bw.newLine();
+            bw.write(titlu);
+            bw.newLine();
+            bw.write(rezultat);
+            bw.newLine();
+
+            bw.close();
+            fw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }

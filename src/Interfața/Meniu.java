@@ -1,10 +1,7 @@
 package Interfața;
 
-import Actiuni.ActiuniNormal;
-import Actiuni.ManagerMemorie;
-import Actiuni.SalveazaInFisiere;
+import Actiuni.*;
 import ObiecteReale.Utilizator;
-import Actiuni.AcțiuniComune;
 
 import java.util.Scanner;
 
@@ -120,6 +117,12 @@ public class Meniu {
                     prezentareOptiuni();
                     selectie(memorie);
 
+                }else {
+
+                    ActiuniBibliotecar actB = new ActiuniBibliotecar();
+                    actB.afiseazaImprumuturiPeData(memorie);
+                    revii();
+                    selectie(memorie);
                 }
 
                 break;
@@ -133,9 +136,25 @@ public class Meniu {
 
                 }
                 break;
+            case 7:
+                if(utilizator.getEsteBibliotecar() == false)
+                {
+                    ActiuniNormal actN = new ActiuniNormal(memorie);
+                    actN.restituieCarte(utilizator);
+                    revii();
+                    selectie(memorie);
+                }else {
+
+                    ActiuniBibliotecar actB = new ActiuniBibliotecar();
+                    actB.adaugaCarte(memorie);
+                    revii();
+                    selectie(memorie);
+                }
+                break;
             case 8:
                 this.utilizator = new Utilizator();
                 startMeniu(memorie);
+                prezentareOptiuni();
                 selectie(memorie);
                 break;
             case 9:

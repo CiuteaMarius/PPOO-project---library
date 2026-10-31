@@ -83,7 +83,12 @@ public class ManagerMemorie {
 
                 String dataText = bucăți[2];
                 LocalDateTime data = LocalDateTime.parse(dataText);
-                Imprumut imprumut = new Imprumut(idCarte, data);
+                boolean esteActiv = Boolean.parseBoolean(bucăți[3]);
+                LocalDateTime dataRest = null;
+                if (!bucăți[4].equals("null")) {
+                    dataRest = LocalDateTime.parse(bucăți[4]);
+                }
+                Imprumut imprumut = new Imprumut(idCarte, data, esteActiv, dataRest);
 
                 if(imprumuturi.containsKey(nume))
                 {
