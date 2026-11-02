@@ -34,7 +34,6 @@ public class Logare {
      * @param memorie instanța care gestionează starea curentă a datelor din bibliotecă
      * @param user obiectul în care se vor asocia datele profilului conectat
      * @throws NumberFormatException dacă valoarea introdusă de la tastatură pentru selecția meniului nu este un număr valid
-     * @throws OptiuneInvalida dacă valoarea numerică introdusă este diferită de {@code 1} sau {@code 2}
      */
     public void separareLogare(ManagerMemorie memorie, Utilizator user)
     {

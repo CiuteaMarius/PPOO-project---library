@@ -8,15 +8,31 @@ import ObiecteReale.Utilizator;
 
 import java.util.*;
 
+
+/**
+ * Centralizează operațiunile destinate exclusiv clienților obișnuiți.
+ * Conține logica necesară pentru finalizarea împrumuturilor, consultarea istoricului propriu și restituirea lucrărilor.
+ */
 public class ActiuniNormal {
 
     private ActiuniComune actC;
     private ManagerMemorie memorie;
 
+    /**
+     * Stabilește legătura dintre logica utilizatorului și sursa centrală de date din RAM.
+     *
+     * @param memorie instanța care furnizează acces la dicționarul bibliotecii
+     */
     public ActiuniNormal(ManagerMemorie memorie) {
         this.memorie = memorie;
     }
 
+
+    /**
+     * Formează cheia unică a cărții și actualizează starea acesteia în memorie la momentul împrumutului.
+     * @param carte obiectul selectat care devine indisponibil pe raft
+     * @param user profilul clientului căruia i se asociază tranzacția
+     */
     public void imprumuta(Carte carte, Utilizator user)
     {
         String idCarte = carte.getTitlu() + "!#!" + carte.getAutor() + "!#!" + carte.getAn_publicare();
@@ -60,15 +76,20 @@ public class ActiuniNormal {
     private Carte cautaCarteExacta(List<Carte> cartiCuAcelasiTitlu, String autor, int an) {
         for (Carte c : cartiCuAcelasiTitlu) {
             if (c.getAutor().equalsIgnoreCase(autor) && c.getAn_publicare() == an) {
-                return c; // Am găsit-o!
+                return c;
             }
         }
-        // Abia DUPĂ ce se termină bucla și nu am găsit nimic, returnăm null
+
         return null;
     }
 
 
-
+    /**
+     * Gestionează fluxul complet de împrumut. Solicită clarificări suplimentare (autor și an) prin intermediul metodei {@link #cautaCarteExacta(List, String, int)} dacă cumva există mai multe cărți cu același titlu.
+     * @param user clientul inițiator al tranzacției
+     * @throws NumberFormatException dacă anul introdus nu poate fi parsat ca număr întreg
+     * @throws AnInvalid dacă {@code year} este negativ sau depășește anul calendaristic curent
+     */
     public void imprCentraliz(Utilizator user) {
 
         String title = askTitle();
@@ -132,6 +153,12 @@ public class ActiuniNormal {
         }
     }
 
+
+    /**
+     * Parcurge istoricul tranzacțiilor și tipărește exclusiv lucrările reținute de persoana conectată.
+     * @param memorie instanța care furnizează acces la dicționarul de împrumuturi
+     * @param user utilizatorul a cărui activitate se dorește a fi consultată
+     */
     public void showOwnB(ManagerMemorie memorie, Utilizator user)
     {
         if(memorie.getImprumuturi().containsKey(user.getUsername()))
@@ -160,6 +187,12 @@ public class ActiuniNormal {
 
     }
 
+
+    /**
+     * Permite clientului să înapoieze o carte împrumutată. Transformă starea împrumutului în inactivă și marchează cartea ca fiind disponibilă.
+     * @param user clientul care realizează restituirea
+     *  @throws NumberFormatException dacă opțiunea numerică aleasă din listă este invalidă ca format
+     */
     public void restituieCarte(Utilizator user) {
 
         if (memorie.getImprumuturi().containsKey(user.getUsername()) == false) {
@@ -204,7 +237,7 @@ public class ActiuniNormal {
             return;
         }
 
-        // 6. Transformăm textul în număr și verificăm validitatea
+
         int selectie = -1;
         try {
             selectie = Integer.parseInt(raspuns);

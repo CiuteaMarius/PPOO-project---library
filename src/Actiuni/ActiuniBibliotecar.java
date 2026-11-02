@@ -10,6 +10,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+/**
+ * Concentrează funcțiile administrative complexe rezervate bibliotecarului.
+ * Acoperă logica de adăugare a cărților noi și a generării rapoartelor statistice detaliate.
+ */
 public class ActiuniBibliotecar {
 
 
@@ -31,6 +35,14 @@ public class ActiuniBibliotecar {
         }
     }
 
+
+    /**
+     * Tipărește direct în consolă un desfășurător al tuturor tranzacțiilor înregistrate
+     * în sistem la o dată exactă.
+     *
+     * @param memorie depozitul central de unde se extrag împrumuturile
+     * @throws DateTimeParseException dacă data introdusă pentru căutare este invalidă
+     */
     public void afiseazaImprumuturiPeData(ManagerMemorie memorie) {
 
 
@@ -75,15 +87,18 @@ public class ActiuniBibliotecar {
         }
     }
 
-
+    /**
+     * Asistă procesul de adăugare a unei cărți noi în colecția bibliotecii.
+     * @param memorie instanța care furnizează acces la dicționarul bibliotecii
+     */
     public void adaugaCarte(ManagerMemorie memorie) {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Introduceți titlul cărții:");
-        String titlu = scan.nextLine().trim();
+        String titlu = scan.nextLine();
 
         System.out.println("Introduceți numele autorului:");
-        String autor = scan.nextLine().trim();
+        String autor = scan.nextLine();
 
 
         int an = cereAn();
@@ -108,7 +123,13 @@ public class ActiuniBibliotecar {
         System.out.println("\nCartea \"" + titlu + "\" a fost adăugată cu succes în bibliotecă!");
     }
 
+
+
     //RAPOARTE:
+
+
+
+
     private void raportAutor(ManagerMemorie memorie, String autor)
     {
         SalveazaInFisiere save = new SalveazaInFisiere(memorie);
@@ -363,7 +384,8 @@ public class ActiuniBibliotecar {
     }
 
 
-    //centralizarea rapoartelor
+
+
     private String cereText(String mesaj) throws DateInvalide {
         System.out.print(mesaj);
         Scanner scan = new Scanner(System.in);
@@ -392,6 +414,15 @@ public class ActiuniBibliotecar {
         }
     }
 
+
+
+    /**
+     * Oferă panoul central pentru deciziile de natură analitică ale administratorului. practic, este un submeniu de unde utilizatorul poate alege care ce feol de raport dorește să fie generat.
+     *
+     * @param memorie obiectul ce conține datele necesare generării documentelor
+     * @throws NumberFormatException dacă opțiunea din submeniu nu este numerică
+     * @throws DateInvalide dacă datele calendaristice introduse pentru intervale sunt goale, incorecte sau nelogice
+     */
     public void meniuRapoarte(ManagerMemorie memorie) {
         System.out.println("\n=== SUBMENIU RAPOARTE BIBLIOTECAR ===");
         System.out.println("1) Raport toate cărțile unui autor");
