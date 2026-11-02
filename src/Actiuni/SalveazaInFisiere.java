@@ -10,14 +10,26 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Responsabilă cu persistența datelor la finalul sesiunii de lucru.
+ * Preia informațiile stocate temporar în memoria RAM și suprascrie fișierele text pentru a garanta salvarea modificărilor.
+ */
 public class SalveazaInFisiere {
     private ManagerMemorie memorie;
 
+    /**
+     * Inițializează obiectul prin care se efectuează salvările
+     *
+     * @param memorie instanța care conține colecțiile actualizate pe parcursul rulării
+     */
     public SalveazaInFisiere(ManagerMemorie memorie) {
         this.memorie = memorie;
 
     }
 
+    /**
+     * Declanșează secvențial toate procedurile de scriere pe disc.
+     */
     public void salveazaTOT()
     {
         salveazaUtilizatorii();
@@ -25,6 +37,11 @@ public class SalveazaInFisiere {
         salveazaCartile();
     }
 
+    /**
+     * Suprascrie fișierul text al utilizatorilor cu datele din colecția curentă.
+     *
+     * @throws RuntimeException dacă fluxul de scriere este întrerupt brusc
+     */
     public void salveazaUtilizatorii()
     {
         try {
@@ -45,6 +62,12 @@ public class SalveazaInFisiere {
 
     }
 
+
+    /**
+     * Formatează fiecare tranzacție de împrumut folosind separatorul specific „##” și actualizează fișierul text cu împrumuturi.
+     *
+     * @throws RuntimeException dacă sistemul refuză permisiunea de scriere a fișierului
+     */
     public void salveazaImprumuturi()
     {
         try {
@@ -75,6 +98,10 @@ public class SalveazaInFisiere {
         }
     }
 
+    /**
+     * Parcurge întregul catalog al bibliotecii și exportă atributele fiecărei lucrări în fișierul text principal.
+     * @throws RuntimeException dacă apar erori de accesare a fișierului destinație
+     */
     public void salveazaCartile() {
         try {
             FileWriter fw = new FileWriter("src/Carti.txt");
@@ -102,6 +129,14 @@ public class SalveazaInFisiere {
         }
     }
 
+    /**
+     * Generează un document text nou în dosarul dedicat rapoartelor, adăugând un marcaj temporal deasupra datelor statistice.
+     *
+     * @param titlu textul care va fi afișat ca antet în interiorul documentului
+     * @param rezultat corpul principal de text conținând analiza extrasă
+     * @param fileName denumirea fizică sub care va fi salvat documentul pe disc
+     * @throws RuntimeException dacă dosarul destinație nu poate fi accesat sau creat
+     */
     public void saveRaport(String titlu, String rezultat, String fileName)
     {
         try {

@@ -1,10 +1,10 @@
 package Actiuni;
 
-import Excepții.CatInexistenta;
-import Excepții.DateInvalide;
+import Exceptii.CatInexistenta;
+import Exceptii.DateInvalide;
 import ObiecteReale.Carte;
 import ObiecteReale.Imprumut;
-import Excepții.OptiuneInvalida;
+import Exceptii.OptiuneInvalida;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -235,7 +235,7 @@ public class ActiuniBibliotecar {
         }
 
         String rezultat = sb.toString();
-        String titlu = "RAPORT PENTRU CATEGORIA" + categorie.toUpperCase();
+        String titlu = "RAPORT PENTRU CATEGORIA " + categorie.toUpperCase();
         salveaza.saveRaport(titlu, rezultat, "Raport categorie");
 
     }

@@ -1,6 +1,17 @@
-package Interfața;
+package Interfata;
 
+/**
+ * Clasă utilitară responsabilă cu afișarea opțiunilor de bază,
+ * accesibile tuturor participanților din sistem indiferent de drepturi.
+ */
 public class OptiuniComune {
+
+    /**
+     * Afiseaza prima parte a meniului principal și decide dinamic care set suplimentar de opțiuni trebuie afișat, direcționând fluxul vizual către
+     * {@link OptiuniBibliotecar#afisarePrincipala()} sau {@link OptiuniNormal#afisarePrincipala()}.
+     *
+     * @param isBibliotecar variabilă logică ce determină afișarea funcțiilor administrative dacă are valoarea {@code true}, sau funcțiilor de client dacă este {@code false}
+     */
     public void afisarePrincipala(boolean isBibliotecar)
     {
         System.out.println("============================================================================================================================");
@@ -26,6 +37,10 @@ public class OptiuniComune {
         System.out.println("\nRaspunsul dvs: ");
 
     }
+
+    /**
+     * Afișează textul ajutător pentru submeniul de căutare avansată, descriind opțiunile numerice de filtrare disponibile.
+     */
     public void submeniuOpt4()
     {
         System.out.println("Criteriile disponibile pentru căutare sunt TITLUL CĂRȚII și ANUL PUBLICĂRII.");

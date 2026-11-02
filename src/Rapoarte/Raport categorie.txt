@@ -1,0 +1,5 @@
+Generat la: 2026-11-01T13:12:45.437027500
+RAPORT PENTRU CATEGORIAINFORMATICĂ
+Din categoria Informatică avem 2 cărți. Acestea sunt:     Clean Code scrisă de Robert C. Martin în anul2008
+     Algoritmi de baza scrisă de Thomas Cormen în anul2009
+

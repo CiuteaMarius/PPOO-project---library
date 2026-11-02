@@ -1,7 +1,10 @@
 import Actiuni.ManagerMemorie;
-import Actiuni.SalveazaInFisiere;
-import Interfața.Meniu;
-
+import Interfata.Meniu;
+/**
+ * Punctul de intrare în aplicația de gestiune a bibliotecii.
+ * Această clasă orchestrează inițializarea sistemului, încărcarea datelor
+ * persistente din fișiere și delegarea controlului către interfața cu utilizatorul.
+ */
 public class Main {
     public static void main(String[] args) {
 

@@ -1,12 +1,22 @@
-package Interfața;
+package Interfata;
 
+/**
+ * Clasă utilitară ce construiește interfața grafică textuală destinată exclusiv utilizatorilor standard.
+ */
 public class OptiuniNormal {
 
+    /**
+     * Tipărește opțiunile prin care clienții pot interacționa cu istoricul personal și cu biblioteca.
+     */
     public void afisarePrincipala()
     {
         System.out.print("\n     |\n     |__  5) Împrumută o carte" + "\n     |\n     |__  6) Vizualizează propriile cărți" +
                 "\n     |\n     |__  7) Restituie o carte împrumutată");
     }
+
+    /**
+     * Prezintă detaliat instrucțiunile și constrângerile textuale necesare pentru finalizarea unui împrumut.
+     */
     public void afisareImprumutare()
     {
         System.out.println("Introduceți Titlul Cărții, Numele Autorului și Data publicării pentru a putea identifica exact cartea pe care vreți s-o împrumutați.");

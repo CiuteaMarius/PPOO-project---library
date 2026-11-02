@@ -1,6 +1,7 @@
 package Actiuni;
 
-import Excepții.OptiuneInvalida;
+import Exceptii.AnInvalid;
+import Exceptii.OptiuneInvalida;
 import ObiecteReale.Carte;
 import ObiecteReale.Imprumut;
 import ObiecteReale.Utilizator;
@@ -9,7 +10,7 @@ import java.util.*;
 
 public class ActiuniNormal {
 
-    private AcțiuniComune actC;
+    private ActiuniComune actC;
     private ManagerMemorie memorie;
 
     public ActiuniNormal(ManagerMemorie memorie) {
@@ -88,9 +89,16 @@ public class ActiuniNormal {
 
             try {
                 int year = Integer.parseInt(yearText);
+                int anCurent = java.time.LocalDate.now().getYear();
+                if (year < 0 || year > anCurent) {
+                    throw new AnInvalid("Anul publicării introdus nu este valid calendaristic.");
+                }
                 carteDeImprumutat = cautaCarteExacta(cartiGasite, author, year);
             } catch (NumberFormatException e) {
                 System.out.println("Anul introdus este invalid.");
+                return;
+            } catch (AnInvalid e) {
+                System.out.println(e.getMessage());
                 return;
             }
         }
@@ -153,7 +161,7 @@ public class ActiuniNormal {
     }
 
     public void restituieCarte(Utilizator user) {
-        // 1. Verificăm dacă utilizatorul există în lista de împrumuturi
+
         if (memorie.getImprumuturi().containsKey(user.getUsername()) == false) {
             System.out.println("Nu aveți niciun împrumut înregistrat.");
             return;
@@ -162,7 +170,7 @@ public class ActiuniNormal {
         List<Imprumut> toateImprumuturile = memorie.getImprumuturi().get(user.getUsername());
         List<Imprumut> imprumuturiActive = new ArrayList<>();
 
-        // 2. Extragem DOAR cărțile care sunt încă la utilizator (active)
+
         for (Imprumut imp : toateImprumuturile) {
             if (imp.isEsteActiv() == true) {
                 imprumuturiActive.add(imp);
@@ -174,7 +182,7 @@ public class ActiuniNormal {
             return;
         }
 
-        // 3. Afișăm lista numerotată
+
         System.out.println("Cărțile împrumutate de dumneavoastră sunt:");
         int contor = 1;
         for (Imprumut imp : imprumuturiActive) {
@@ -187,12 +195,10 @@ public class ActiuniNormal {
             contor = contor + 1;
         }
 
-        // 4. Cerem input de la utilizator
         System.out.println("\nIntroduceți numărul cărții pe care doriți să o restituiți sau tastați 'Y' pentru anulare.");
         Scanner scan = new Scanner(System.in);
         String raspuns = scan.nextLine().trim();
 
-        // 5. Verificăm dacă vrea să anuleze
         if (raspuns.equalsIgnoreCase("y")) {
             System.out.println("Proces anulat.");
             return;
@@ -212,13 +218,12 @@ public class ActiuniNormal {
             return;
         }
 
-        // 7. Modificăm starea împrumutului selectat
-        // Indexul în listă este selecția - 1 (pentru că lista începe de la 0, iar noi am numerotat de la 1)
+
         Imprumut imprDeRestituit = imprumuturiActive.get(selectie - 1);
         imprDeRestituit.setEsteActiv(false);
         imprDeRestituit.setDataRestituire(java.time.LocalDateTime.now());
 
-        // 8. Căutăm cartea în memorie pentru a o face disponibilă din nou
+
         String idTarget = imprDeRestituit.getIdCarte();
         for (List<Carte> listaCarti : memorie.getBiblioteca().values()) {
             for (Carte c : listaCarti) {

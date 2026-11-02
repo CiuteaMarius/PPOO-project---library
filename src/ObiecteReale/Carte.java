@@ -1,5 +1,9 @@
 package ObiecteReale;
 
+/**
+ * Clasa care reprezintă entitatea de bază a bibliotecii.
+ * Stochează informațiile esențiale despre o lucrare literară, inclusiv starea sa curentă de disponibilitate.
+ */
 public class Carte {
 
 
@@ -21,6 +25,15 @@ public class Carte {
 
     }
 
+    /**
+     * Construiește un obiect de tip Carte folosind informațiile specificate.
+     *
+     * @param titlu Titlul lucrării literare.
+     * @param autor Numele complet al autorului.
+     * @param an_publicare Anul în care a fost publicată lucrarea.
+     * @param esteDisponibila Starea inițială a cărții la adăugarea în sistem (dacă este prezentă fizic în bibliotecă sau nu).
+     * @param categrorie Genul literar sau domeniul din care face parte cartea.
+     */
     public Carte(String titlu, String autor, int an_publicare, boolean esteDisponibila, String categrorie) {
         this.titlu = titlu;
         this.autor = autor;
@@ -88,9 +101,22 @@ public class Carte {
         return first + second;
     }
 
+
+    /**
+     * Generează o descriere textuală simplificată a cărții.
+     *
+     * @return Un șir de caractere ce conține doar titlul, autorul și anul publicării.
+     */
     public String toStringLite()
     {
         return this.titlu + " scrisă de " + this.autor + " în anul" + this.an_publicare;
     }
+
+
+    /**
+     * Generează o descriere textuală și mai simplă decât {@link #toStringLite()}, utilizată cu precădere în rapoartele care țin de filtrarea în funcție de autor.
+     *
+     * @return Un șir de caractere format din titlu și anul publicării.
+     */
     public String toStringLite2(){return this.titlu + " publicată în anul " + this.an_publicare;}
 }

@@ -1,14 +1,23 @@
-package Interfața;
+package Interfata;
 
 import Actiuni.*;
 import ObiecteReale.Utilizator;
 
 import java.util.Scanner;
 
+/**
+ * Clasa centrală a interfeței cu utilizatorul, având rolul de a orchestra navigația între diferitele opțiuni și submeniuri ale aplicației.
+ */
 public class Meniu {
 
     private Utilizator utilizator;
     private SalveazaInFisiere salveaza;
+
+    /**
+     * Declanșează închiderea controlată a sistemului, apelând metoda {@link SalveazaInFisiere#salveazaTOT()} pentru a asigura persistența datelor din memoria volatilă pe disc.
+     *
+     * @param memorie managerul de memorie ale cărui date trebuie salvate
+     */
     public void exit(ManagerMemorie memorie)
     {
         salveaza = new SalveazaInFisiere(memorie);
@@ -19,6 +28,13 @@ public class Meniu {
         this.utilizator = new Utilizator();
     }
 
+
+    /**
+     * Pornește ciclul de viață al meniului, delegând procesul inițial către {@link Logare#intrebareLogare(ManagerMemorie, Utilizator)} și preluând rolul stabilit pentru configurarea sesiunii.
+     *
+     * @param memorie instanța care conține colecțiile de date ale bibliotecii
+     *
+     */
     public void startMeniu(ManagerMemorie memorie) {
         Logare logare = new Logare();
         logare.intrebareLogare(memorie, utilizator);
@@ -32,6 +48,9 @@ public class Meniu {
 
     }
 
+    /**
+     * Afișează panoul principal de opțiuni (bazându-se pe nivelul de acces), apelând metoda {@link OptiuniComune#afisarePrincipala(boolean)} cu permisiunile profilului curent.
+     */
     public void prezentareOptiuni()
     {
         OptiuniComune comun = new OptiuniComune();
@@ -39,6 +58,10 @@ public class Meniu {
 
     }
 
+    /**
+     * Gestionează pauza de navigare după finalizarea unei acțiuni.
+     * Așteaptă confirmarea utilizatorului prin introducerea caracterului "Y" pentru a reafişa opțiunile prin apelul {@link #prezentareOptiuni()} (altfel se apelează pe sine recursiv).
+     */
     public void revii()
     {
         System.out.println("Pentru a reveni la meniul principal, introduceți tasta \"Y\"");
@@ -55,22 +78,30 @@ public class Meniu {
 
     }
 
+
+    /**
+     * Preia comanda numerică de la utilizator și direcționează execuția către acțiunea corespunzătoare din pachetul logic.
+     * Dacă acțiunea necesită o pauză vizuală la finalizare, se declanșează metoda {@link #revii()}, altfel
+     * se revine direct la panoul principal prin {@link #prezentareOptiuni()}.
+     *
+     * @param memorie referința către colecțiile de date necesare îndeplinirii comenzii
+     * @throws NumberFormatException dacă inputul citit din consolă nu poate fi transformat într-o valoare de tip {@code int}
+     */
     public void selectie(ManagerMemorie memorie)
     {
         OptiuniComune optC = new OptiuniComune();
         OptiuniNormal optN = new OptiuniNormal();
         Scanner scan = new Scanner(System.in);
+        String rasp = scan.nextLine();
         int optiune = -1;
-        if(scan.hasNextInt())
-        {
-            optiune = scan.nextInt();
-            scan.nextLine();
-
-        }else{
-            System.out.println("Introduceți un număr din lista de opțiuni.");
+        try {
+            optiune = Integer.parseInt(rasp);
+        } catch (NumberFormatException e) {
+            System.out.println("Introduceți un număr valid din lista de opțiuni!! Răspunusl dvs:");
             selectie(memorie);
+            return;
         }
-        AcțiuniComune actC = new AcțiuniComune();
+        ActiuniComune actC = new ActiuniComune();
 
 
         switch (optiune){
